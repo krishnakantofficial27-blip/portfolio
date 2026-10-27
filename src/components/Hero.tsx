@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
-import { achievements, certifications, education, profile, projects, type ProfileId } from '../data/portfolio';
+import { profile, projects, type ProfileId } from '../data/portfolio';
 import { useFinePointer } from '../hooks/useMedia';
 import { useSmoothScroll } from '../hooks/smoothScroll';
 import { EASE, Magnetic, Particles } from './fx';
@@ -37,18 +37,17 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
   const glowX = useTransform(px, [-1, 1], ['-6%', '6%']);
 
   const meta = [
-    education[0].period.split(' – ')[0].split(' ')[1] + ' – Present',
+    'AI / ML & Software',
     'B.Tech AI & ML',
     `${projects.length} Originals`,
-    `${certifications.length} Certifications`,
+    'SlopeSafe Featured',
   ];
 
   const floating = [
-    { text: education[0].score, sub: 'B.Tech AI & ML', pos: 'left-[2%] top-[30%]', depth: 1 },
-    { text: `${achievements[0].title}`, sub: achievements[0].org, pos: 'right-[0%] top-[18%]', depth: -1 },
-    { text: 'Java · React · Node.js', sub: 'Primary stack', pos: 'right-[4%] bottom-[24%]', depth: 0.6 },
+    { text: 'SlopeSafe', sub: 'Landslide Prediction', pos: 'left-[2%] top-[30%]', depth: 1 },
+    { text: 'AI / ML Engineer', sub: 'Specialization', pos: 'right-[0%] top-[18%]', depth: -1 },
+    { text: 'Python · ML · React', sub: 'Core Stack', pos: 'right-[4%] bottom-[24%]', depth: 0.6 },
   ];
-
   return (
     <section
       id="top"
@@ -207,3 +206,6 @@ function FloatChip({ text, sub, pos, depth, index, mx, my }: { text: string; sub
     </motion.div>
   );
 }
+
+
+

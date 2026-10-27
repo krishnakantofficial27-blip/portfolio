@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
-import { education, experience, profile } from '../data/portfolio';
+import { profile } from '../data/portfolio';
 import { EASE, SectionHeading, Tilt } from './fx';
 
 export default function About() {
   const facts = [
-    { k: 'Now', v: 'B.Tech, AI & ML', s: `${education[0].school} · ${education[0].score}` },
-    { k: 'Training', v: `${experience[0].role}, ${experience[0].company}`, s: experience[0].period },
-    { k: 'Primary language', v: 'Java', s: 'with Python, C, C++' },
-    { k: 'Based in', v: profile.location, s: 'India' },
+    { k: 'Focus', v: 'B.Tech, AI & ML', s: 'Artificial Intelligence & Machine Learning' },
+    { k: 'Featured Work', v: 'SlopeSafe', s: 'Landslide-Risk Monitoring & Prediction' },
+    { k: 'Primary language', v: 'Python', s: 'with C++, Java, JavaScript' },
+    { k: 'Based in', v: profile.location, s: 'Global software engineering' },
   ];
 
   return (
@@ -92,3 +92,4 @@ export default function About() {
     </>
   );
 }
+
