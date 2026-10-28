@@ -1,211 +1,442 @@
 import { useRef } from 'react';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
-import { profile, projects, type ProfileId } from '../data/portfolio';
+import { profile, type ProfileId } from '../data/portfolio';
 import { useFinePointer } from '../hooks/useMedia';
 import { useSmoothScroll } from '../hooks/smoothScroll';
 import { EASE, Magnetic, Particles } from './fx';
 import { SeriesMark } from './Poster';
 
-const container = { hidden: {}, show: { transition: { staggerChildren: 0.09, delayChildren: 0.25 } } };
-const item = {
-  hidden: { opacity: 0, y: 28, filter: 'blur(10px)' },
-  show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.9, ease: EASE } },
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
 };
 
-export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => void; onResume: () => void; profileId: ProfileId }) {
+const item = {
+  hidden: { opacity: 0, y: 24, filter: 'blur(8px)' },
+  show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.85, ease: EASE } },
+};
+
+export default function Hero({
+  onPlay,
+  onResume,
+  profileId,
+}: {
+  onPlay: () => void;
+  onResume: () => void;
+  profileId: ProfileId;
+}) {
   const ref = useRef<HTMLElement>(null);
   const fine = useFinePointer();
   const { scrollTo } = useSmoothScroll();
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-30%']);
+  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '14%']);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-20%']);
   const fade = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
-  const blackout = useTransform(scrollYProgress, [0.35, 1], [0, 1]);
+  const blackout = useTransform(scrollYProgress, [0.45, 1], [0, 1]);
 
-  // pointer parallax (desktop)
+  // Subtle interactive parallax for fine pointer
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const px = useSpring(mx, { stiffness: 60, damping: 18 });
-  const py = useSpring(my, { stiffness: 60, damping: 18 });
-  const imgRotY = useTransform(px, [-1, 1], [-4, 4]);
-  const imgRotX = useTransform(py, [-1, 1], [3, -3]);
-  const imgShiftX = useTransform(px, [-1, 1], [-10, 10]);
-  const chipX = useTransform(px, [-1, 1], [18, -18]);
-  const chipY = useTransform(py, [-1, 1], [12, -12]);
-  const glowX = useTransform(px, [-1, 1], ['-6%', '6%']);
+  const px = useSpring(mx, { stiffness: 50, damping: 20 });
+  const py = useSpring(my, { stiffness: 50, damping: 20 });
+  const imgRotY = useTransform(px, [-1, 1], [-2, 2]);
+  const imgRotX = useTransform(py, [-1, 1], [1.5, -1.5]);
+  const imgShiftX = useTransform(px, [-1, 1], [-5, 5]);
+  const chipX = useTransform(px, [-1, 1], [10, -10]);
+  const chipY = useTransform(py, [-1, 1], [6, -6]);
+  const glowX = useTransform(px, [-1, 1], ['-2%', '2%']);
 
-  const meta = [
+  const metaItems = [
     'AI / ML & Software',
     'B.Tech AI & ML',
-    `${projects.length} Originals`,
+    '3 Originals',
     'SlopeSafe Featured',
   ];
 
-  const floating = [
-    { text: 'SlopeSafe', sub: 'Landslide Prediction', pos: 'left-[2%] top-[30%]', depth: 1 },
-    { text: 'AI / ML Engineer', sub: 'Specialization', pos: 'right-[0%] top-[18%]', depth: -1 },
-    { text: 'Python · ML · React', sub: 'Core Stack', pos: 'right-[4%] bottom-[24%]', depth: 0.6 },
-  ];
   return (
     <section
       id="top"
       ref={ref}
-      className="relative min-h-[100svh] overflow-hidden"
+      className="relative min-h-[100svh] overflow-hidden bg-ink select-none"
       onPointerMove={(e) => {
         if (!fine) return;
         mx.set((e.clientX / window.innerWidth) * 2 - 1);
         my.set((e.clientY / window.innerHeight) * 2 - 1);
       }}
     >
-      {/* atmosphere */}
-      <motion.div aria-hidden className="absolute inset-0" style={{ x: glowX }}>
-        <div className="absolute right-[-10%] top-[-10%] h-[90vh] w-[80vw] rounded-full bg-[radial-gradient(closest-side,rgba(229,19,43,0.38),rgba(229,19,43,0.08)_55%,transparent)] blur-2xl lg:right-[-4%] lg:w-[60vw]" />
-        <div className="absolute bottom-[-20%] left-[-10%] h-[70vh] w-[60vw] rounded-full bg-[radial-gradient(closest-side,rgba(90,20,120,0.25),transparent)] blur-2xl" />
+      {/* ================= 1. FULL-BLEED CINEMATIC ATMOSPHERE & LIGHTING ================= */}
+      <motion.div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0" style={{ x: glowX }}>
+        {/* Core Crimson Atmospheric Smoke directly behind Krishna's upper torso */}
+        <div className="absolute right-[0%] top-[4%] h-[90vh] w-[68vw] rounded-full bg-[radial-gradient(ellipse_at_65%_38%,rgba(229,19,43,0.44)_0%,rgba(180,15,45,0.20)_42%,transparent_70%)] blur-3xl lg:right-[4%] lg:w-[54vw]" />
+        
+        {/* Magenta Atmospheric Haze Bloom */}
+        <div className="absolute right-[8%] top-[10%] h-[72vh] w-[46vw] rounded-full bg-[radial-gradient(ellipse_at_60%_35%,rgba(185,20,105,0.30)_0%,transparent_62%)] blur-2xl" />
+
+        {/* Ambient Warm Volumetric Backlight Rays */}
+        <div className="absolute right-[12%] top-[14%] h-[60vh] w-[40vw] bg-[conic-gradient(from_210deg_at_55%_40%,rgba(229,19,43,0.18)_0deg,transparent_40deg,rgba(255,61,90,0.15)_85deg,transparent_135deg)] blur-2xl" />
+
+        {/* Restrained Cool Blue Lighting along the lower distant horizon */}
+        <div className="absolute bottom-0 inset-x-0 h-[34vh] bg-[radial-gradient(ellipse_85%_50%_at_50%_100%,rgba(56,189,248,0.18)_0%,rgba(15,76,120,0.09)_50%,transparent_75%)] blur-2xl" />
       </motion.div>
-      <Particles className="z-[1]" />
-      <div aria-hidden className="absolute inset-0 z-[1] overflow-hidden">
-        <span className="light-streak left-[40%] top-[22%] w-[50vw]" style={{ animationDelay: '1.2s' }} />
-        <span className="light-streak left-[30%] top-[64%] w-[40vw]" style={{ animationDelay: '3.6s' }} />
-        <span className="light-streak left-[55%] top-[44%] w-[30vw]" style={{ animationDelay: '5.2s' }} />
+
+      {/* Floating Ambient Embers / Fine Red Particles */}
+      <Particles className="z-[1]" count={48} color="255,61,90" />
+
+      {/* Thin Horizontal Technical Light Trails */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
+        <span className="light-streak left-[32%] top-[22%] w-[48vw]" style={{ animationDelay: '1s' }} />
+        <span className="light-streak left-[24%] top-[64%] w-[38vw]" style={{ animationDelay: '3.4s' }} />
+        <span className="light-streak left-[48%] top-[40%] w-[30vw]" style={{ animationDelay: '5s' }} />
       </div>
 
-      {/* portrait */}
+      {/* ================= 2. DARK MOUNTAIN SILHOUETTE LANDSCAPE ACROSS LOWER HERO ================= */}
+      <div aria-hidden="true" className="pointer-events-none absolute bottom-0 inset-x-0 z-[1] h-[22vh] sm:h-[26vh] overflow-hidden">
+        {/* Distant Mountain Ridge Silhouette with Subtle Blue Highlight Crest */}
+        <svg
+          viewBox="0 0 1440 240"
+          fill="none"
+          preserveAspectRatio="none"
+          className="absolute bottom-0 w-full h-full opacity-60"
+        >
+          <path
+            d="M0,240 L0,140 L130,115 L280,155 L440,95 L610,145 L780,85 L960,135 L1140,75 L1300,125 L1440,95 L1440,240 Z"
+            fill="#090910"
+            stroke="rgba(56,189,248,0.22)"
+            strokeWidth="1.2"
+          />
+        </svg>
+
+        {/* Foreground Mountain Silhouette Ridge */}
+        <svg
+          viewBox="0 0 1440 240"
+          fill="none"
+          preserveAspectRatio="none"
+          className="absolute bottom-0 w-full h-[80%] opacity-95"
+        >
+          <path
+            d="M0,240 L0,165 L190,135 L380,175 L540,125 L710,160 L900,110 L1080,150 L1260,120 L1440,155 L1440,240 Z"
+            fill="#07070a"
+          />
+        </svg>
+
+        {/* Soft Red Horizon Mist rising from valleys */}
+        <div className="absolute bottom-0 inset-x-0 h-[45%] bg-gradient-to-t from-ink via-crimson/12 to-transparent blur-md" />
+      </div>
+
+      {/* ================= 3. RIGHT SIDE: HERO PORTRAIT & CIRCULAR ENERGY RINGS ================= */}
       <motion.div
-        className="absolute inset-x-0 top-12 z-[2] flex h-[64svh] items-end justify-center sm:h-[70svh] lg:bottom-0 lg:left-auto lg:right-[3vw] lg:top-20 lg:h-auto lg:w-[54vw] xl:right-[6vw] xl:w-[48vw]"
+        className="absolute inset-x-0 top-10 z-[3] flex h-[68svh] items-end justify-center sm:h-[74svh] lg:bottom-0 lg:left-auto lg:right-[-2vw] xl:right-[1vw] lg:top-10 lg:h-auto lg:w-[58vw] xl:w-[57vw]"
         style={{ y: imgY, scale: imgScale, opacity: fade }}
       >
         <motion.div
-          className="relative h-full w-full lg:h-[86vh]"
+          className="relative flex h-full w-full items-end justify-center lg:h-[92vh]"
           style={{ rotateY: imgRotY, rotateX: imgRotX, x: imgShiftX, transformPerspective: 1200 }}
           initial={{ clipPath: 'inset(100% -30% -10% -30%)', opacity: 0 }}
           animate={{ clipPath: 'inset(-30% -30% -10% -30%)', opacity: 1 }}
-          transition={{ duration: 1.6, ease: EASE, delay: 0.1 }}
+          transition={{ duration: 1.5, ease: EASE, delay: 0.1 }}
         >
-          {/* rim light ring */}
-          <div aria-hidden className="absolute bottom-[8%] left-1/2 h-[78%] w-[78%] -translate-x-1/2 rounded-full border border-crimson-2/20 shadow-[0_0_120px_rgba(229,19,43,0.35),inset_0_0_80px_rgba(229,19,43,0.18)]" />
+          {/* ================= CIRCULAR ENERGY RINGS (POSITIONED EXACTLY BEHIND HEAD & SHOULDERS) ================= */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute top-[38%] left-[51%] -translate-x-1/2 -translate-y-1/2 z-0"
+          >
+            {/* Outer Concentric Technical Ring with Dashed Arcs, Dots & Slow Rotation */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 110, repeat: Infinity, ease: 'linear' }}
+              className="relative flex items-center justify-center h-[620px] w-[620px] sm:h-[700px] sm:w-[700px] lg:h-[780px] lg:w-[780px]"
+            >
+              <svg viewBox="0 0 780 780" className="h-full w-full">
+                {/* Thin outer circular path */}
+                <circle cx="390" cy="390" r="380" fill="none" stroke="rgba(229,19,43,0.22)" strokeWidth="1" />
+                
+                {/* High-tech dashed arc segment at top-right */}
+                <circle
+                  cx="390"
+                  cy="390"
+                  r="380"
+                  fill="none"
+                  stroke="rgba(255,61,90,0.65)"
+                  strokeWidth="1.8"
+                  strokeDasharray="8 14"
+                  strokeDashoffset="60"
+                />
+
+                {/* Secondary dashed arc segment at bottom-left */}
+                <circle
+                  cx="390"
+                  cy="390"
+                  r="380"
+                  fill="none"
+                  stroke="rgba(255,61,90,0.45)"
+                  strokeWidth="1.5"
+                  strokeDasharray="4 10"
+                  strokeDashoffset="280"
+                />
+
+                {/* Glowing Red & White Light Points / Particles stationed on outer circle */}
+                <circle cx="655" cy="125" r="3.5" fill="#ffffff" filter="drop-shadow(0 0 6px #ff3d5a)" />
+                <circle cx="710" cy="230" r="2.5" fill="#ff3d5a" filter="drop-shadow(0 0 5px #e5132b)" />
+                <circle cx="125" cy="655" r="3" fill="#ffffff" filter="drop-shadow(0 0 6px #ff3d5a)" />
+                <circle cx="70" cy="490" r="2.5" fill="#ff3d5a" filter="drop-shadow(0 0 5px #e5132b)" />
+                <circle cx="510" cy="760" r="3" fill="#ff3d5a" filter="drop-shadow(0 0 6px #e5132b)" />
+              </svg>
+            </motion.div>
+
+            {/* Inner Glowing Crimson Ring (Surrounding Krishna's head & shoulders) */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[460px] w-[460px] sm:h-[510px] sm:w-[510px] lg:h-[540px] lg:w-[540px] rounded-full border-2 border-crimson/75 shadow-[0_0_42px_rgba(229,19,43,0.55),inset_0_0_30px_rgba(229,19,43,0.22)]" />
+
+            {/* Radiant Ambient Core Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle,rgba(229,19,43,0.38)_0%,rgba(160,15,40,0.12)_60%,transparent_75%)] blur-2xl" />
+          </div>
+
+          {/* ================= REAL PHOTOGRAPH: KRISHNA (SOLID FACE/CHEST, SEAMLESS FEATHERED EDGES) ================= */}
           <img
-            src={profile.portrait.src}
-            srcSet={profile.portrait.srcSet}
-            sizes="(max-width: 1024px) 100vw, 54vw"
-            alt={profile.portrait.alt}
-
-            className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 object-contain object-bottom drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)] [mask-image:linear-gradient(to_bottom,black_62%,transparent_97%)]"
+            src="/images/krishna-portrait.png"
+            alt="Krishna Kant Srivastava - AI / ML Engineer"
+            className="relative z-10 h-full w-auto max-w-none object-contain object-bottom drop-shadow-[0_25px_65px_rgba(0,0,0,0.85)]"
+            style={{
+              maskImage: 'radial-gradient(ellipse 68% 80% at 52% 44%, black 48%, rgba(0,0,0,0.85) 62%, transparent 78%), linear-gradient(to bottom, black 72%, transparent 97%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 68% 80% at 52% 44%, black 48%, rgba(0,0,0,0.85) 62%, transparent 78%), linear-gradient(to bottom, black 72%, transparent 97%)',
+              maskComposite: 'intersect',
+              WebkitMaskComposite: 'source-in',
+            }}
           />
-          {/* crimson rim light on the image edge */}
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_80%_30%,rgba(255,61,90,0.16),transparent_70%)] mix-blend-screen" />
 
-          {/* floating UI chips */}
-          {floating.map((f, i) => (
-            <FloatChip key={f.text} {...f} index={i} mx={chipX} my={chipY} />
-          ))}
+          {/* Soft atmospheric backlight bloom behind Krishna's silhouette */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-[20%] left-1/2 -translate-x-1/2 z-0 h-[48%] w-[84%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(229,19,43,0.25),transparent_70%)] blur-2xl"
+          />
+
+          {/* ================= 4. THREE FLOATING INFORMATION CARDS (EXACT TARGET MATCH) ================= */}
+          {/* Card 1: SlopeSafe */}
+          <motion.div
+            className="absolute z-20 hidden md:block left-[1%] lg:left-[4%] top-[34%]"
+            style={{ x: chipX, y: chipY }}
+            initial={{ opacity: 0, filter: 'blur(8px)', y: 20 }}
+            animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+            transition={{ duration: 0.9, delay: 1.1, ease: EASE }}
+          >
+            <div className="relative glass rounded-2xl px-5 py-3.5 backdrop-blur-xl border border-white/10 shadow-[0_16px_40px_rgba(0,0,0,0.7)]">
+              <p className="text-sm sm:text-base font-bold text-bone tracking-wide whitespace-nowrap">SlopeSafe</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-crimson-2 mt-0.5 whitespace-nowrap">
+                LANDSLIDE PREDICTION
+              </p>
+
+              {/* HUD Connector Line towards inner ring */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute top-1/2 left-full ml-1 hidden lg:flex items-center gap-1.5 opacity-60"
+              >
+                <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-r from-white/30 to-crimson-2/50" />
+                <span className="h-1.5 w-1.5 rounded-full bg-crimson-2 shadow-[0_0_8px_#ff3d5a]" />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Card 2: AI / ML Engineer */}
+          <motion.div
+            className="absolute z-20 hidden md:block right-[1%] lg:right-[3%] top-[24%]"
+            style={{ x: chipX, y: chipY }}
+            initial={{ opacity: 0, filter: 'blur(8px)', y: 20 }}
+            animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+            transition={{ duration: 0.9, delay: 1.25, ease: EASE }}
+          >
+            <div className="relative glass rounded-2xl px-5 py-3.5 backdrop-blur-xl border border-crimson-2/50 shadow-[0_0_22px_rgba(229,19,43,0.35),0_16px_40px_rgba(0,0,0,0.7)]">
+              <p className="text-sm sm:text-base font-bold text-bone tracking-wide whitespace-nowrap">AI / ML Engineer</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-crimson-2 mt-0.5 whitespace-nowrap">
+                SPECIALIZATION
+              </p>
+
+              {/* HUD Connector Line towards outer ring */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute top-1/2 right-full mr-1 hidden lg:flex items-center flex-row-reverse gap-1.5 opacity-60"
+              >
+                <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-white/30 to-crimson-2/50" />
+                <span className="h-1.5 w-1.5 rounded-full bg-crimson-2 shadow-[0_0_8px_#ff3d5a]" />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Card 3: Core Stack */}
+          <motion.div
+            className="absolute z-20 hidden md:block right-[0%] lg:right-[2%] bottom-[25%]"
+            style={{ x: chipX, y: chipY }}
+            initial={{ opacity: 0, filter: 'blur(8px)', y: 20 }}
+            animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+            transition={{ duration: 0.9, delay: 1.4, ease: EASE }}
+          >
+            <div className="relative glass rounded-2xl px-5 py-3.5 backdrop-blur-xl border border-crimson/30 shadow-[0_16px_40px_rgba(0,0,0,0.7)]">
+              <p className="text-sm sm:text-base font-bold text-bone tracking-wide whitespace-nowrap">Python · ML · React</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-crimson-2 mt-0.5 whitespace-nowrap">
+                CORE STACK
+              </p>
+
+              {/* HUD Connector Line towards outer ring */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute top-1/2 right-full mr-1 hidden lg:flex items-center flex-row-reverse gap-1.5 opacity-60"
+              >
+                <span className="h-[1px] w-8 sm:w-12 bg-gradient-to-l from-white/30 to-crimson-2/50" />
+                <span className="h-1.5 w-1.5 rounded-full bg-crimson-2 shadow-[0_0_8px_#ff3d5a]" />
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
       </motion.div>
 
-      {/* readability gradients */}
-      <div aria-hidden className="absolute inset-x-0 top-[40svh] z-[3] h-[36svh] bg-gradient-to-b from-transparent via-ink/70 to-ink lg:hidden" />
-      <div aria-hidden className="absolute inset-0 z-[3] hidden bg-[linear-gradient(90deg,var(--color-ink)_0%,rgba(7,7,10,0.7)_32%,transparent_58%)] lg:block" />
-      <div aria-hidden className="absolute inset-x-0 bottom-0 z-[3] h-48 bg-gradient-to-t from-ink to-transparent" />
+      {/* Edge gradient for cinematic text readability on mobile */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[38svh] z-[3] h-[38svh] bg-gradient-to-b from-transparent via-ink/75 to-ink lg:hidden" />
 
-      {/* copy */}
+      {/* ================= 5. LEFT SIDE: EDITORIAL & CINEMATIC COPY ================= */}
       <motion.div
-        className="gutter relative z-[4] flex min-h-[100svh] flex-col justify-end pb-16 pt-[54svh] sm:pb-20 lg:max-w-[52vw] lg:justify-center lg:pb-0 lg:pt-24"
+        className="gutter relative z-[4] flex min-h-[100svh] flex-col justify-end pb-20 pt-[52svh] sm:pb-24 lg:max-w-[44vw] xl:max-w-[42vw] lg:justify-center lg:pb-0 lg:pt-24"
         style={{ y: textY, opacity: fade }}
         variants={container}
         initial="hidden"
         animate="show"
       >
-        <motion.div variants={item} className="mb-3 text-lg">
+        {/* Small S SERIES Label */}
+        <motion.div variants={item} className="mb-2 flex items-center gap-3">
           <SeriesMark />
         </motion.div>
-        <motion.h1 variants={item} className="font-display leading-[0.82] tracking-[0.02em] text-bone" style={{ fontSize: 'clamp(4rem, 12vw, 11rem)' }}>
-          <span className="shimmer-text">{profile.firstName}</span>
+
+        {/* Main Heading: KRISHNA */}
+        <motion.h1
+          variants={item}
+          className="font-display leading-[0.80] tracking-[0.01em] text-bone"
+          style={{ fontSize: 'clamp(4.6rem, 11vw, 10.5rem)' }}
+        >
+          <span className="bg-gradient-to-b from-white via-[#fce7ec] to-[#ff6b85] bg-clip-text text-transparent drop-shadow-[0_12px_45px_rgba(0,0,0,0.9)]">
+            {profile.firstName}
+          </span>
         </motion.h1>
-        <motion.p variants={item} className="mt-1 font-sans text-sm font-bold tracking-[0.62em] text-crimson-2 sm:text-base">
+
+        {/* Subtitle: THE SERIES */}
+        <motion.p
+          variants={item}
+          className="mt-1 font-sans text-sm font-bold tracking-[0.65em] text-crimson-2 [text-shadow:0_2px_22px_rgba(229,19,43,0.6)] sm:text-base"
+        >
           {profile.seriesTag}
         </motion.p>
 
-        <motion.div variants={item} className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] font-medium text-mist">
-          <span className="rounded border border-white/25 px-1.5 py-px text-[10px] font-bold tracking-wider text-bone">AI·ML</span>
-          {meta.map((m, i) => (
-            <span key={m} className="flex items-center gap-3">
+        {/* Metadata Tag Row with [AI-ML] pill */}
+        <motion.div
+          variants={item}
+          className="mt-5 flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-[12.5px] font-medium text-mist"
+        >
+          <span className="rounded border border-white/20 bg-white/5 px-2 py-0.5 text-[10px] font-bold tracking-wider text-bone">
+            AI-ML
+          </span>
+          {metaItems.map((m, i) => (
+            <span key={m} className="flex items-center gap-2 whitespace-nowrap">
               {i > 0 && <span className="h-1 w-1 rounded-full bg-smoke" />}
               {m}
             </span>
           ))}
         </motion.div>
 
-        <motion.p variants={item} className="mt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-bone/90 sm:text-xs sm:tracking-[0.34em]">
-          {profile.tagline.join(' • ')}
+        {/* Professional Role Heading */}
+        <motion.p
+          variants={item}
+          className="mt-4 text-[11px] font-bold uppercase tracking-[0.32em] text-bone sm:text-xs sm:tracking-[0.36em]"
+        >
+          AI / ML ENGINEER • PYTHON • SOFTWARE DEVELOPER
         </motion.p>
 
-        <motion.p variants={item} className="mt-4 max-w-xl text-[15px] leading-relaxed text-bone/80 sm:text-base">
-          {profile.intro}
+        {/* Professional Introduction Paragraph */}
+        <motion.p
+          variants={item}
+          className="mt-4 max-w-xl text-[14px] leading-relaxed text-bone/85 sm:text-[15px]"
+        >
+          An Artificial Intelligence and Machine Learning specialist building intelligent predictive models, data-driven systems, and modern full-stack web applications with Python, AI/ML, React, and TypeScript.
         </motion.p>
 
-        <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3">
+        {/* Action Buttons */}
+        <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3.5">
+          {/* Primary: Play Intro */}
           <Magnetic>
             <button
               type="button"
               data-cursor="play"
               onClick={onPlay}
-              className="flex min-h-12 items-center gap-3 rounded-md bg-bone px-6 py-3 text-[15px] font-bold text-ink transition hover:bg-white sm:px-8"
+              className="group flex min-h-12 items-center gap-2.5 rounded-md bg-white px-7 py-3 text-[15px] font-bold text-ink shadow-[0_0_35px_rgba(255,255,255,0.25)] transition-all duration-300 hover:bg-[#f4f1ec] hover:scale-105 active:scale-95 sm:px-8"
             >
-              <span className="text-lg">▶</span> Play Intro
+              <span className="text-sm text-ink transition-transform group-hover:scale-125">▶</span> Play Intro
             </button>
           </Magnetic>
+
+          {/* Secondary: + My Work */}
           <Magnetic>
             {profileId === 'recruiter' ? (
-              <button type="button" onClick={onResume} className="glass flex min-h-12 items-center gap-3 rounded-md px-6 py-3 text-[15px] font-semibold text-bone transition hover:bg-white/15 sm:px-8">
-                <span className="text-lg">⤓</span> View Resume
+              <button
+                type="button"
+                data-cursor="view"
+                onClick={onResume}
+                className="glass flex min-h-12 items-center gap-2.5 rounded-md px-7 py-3 text-[15px] font-semibold text-bone transition-all duration-300 hover:bg-white/15 hover:border-crimson-2/40 hover:scale-105 active:scale-95 sm:px-8"
+              >
+                <span>📄</span> View Resume
               </button>
             ) : (
               <button
                 type="button"
+                data-cursor="link"
                 onClick={() => scrollTo('#originals')}
-                className="glass flex min-h-12 items-center gap-3 rounded-md px-6 py-3 text-[15px] font-semibold text-bone transition hover:bg-white/15 sm:px-8"
+                className="glass flex min-h-12 items-center gap-2 rounded-md px-7 py-3 text-[15px] font-semibold text-bone transition-all duration-300 hover:bg-white/15 hover:border-crimson-2/40 hover:scale-105 active:scale-95 sm:px-8"
               >
-                <span className="text-xl leading-none">＋</span> My Work
+                <span className="text-base text-bone font-normal leading-none">+</span> My Work
               </button>
             )}
           </Magnetic>
+
+          {/* Information button */}
           <button
             type="button"
+            data-cursor="link"
             onClick={() => scrollTo('#about')}
-            aria-label="More info"
-            className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 text-lg text-bone transition hover:border-bone hover:bg-white/10"
+            aria-label="More information"
+            title="More information"
+            className="glass flex h-12 w-12 items-center justify-center rounded-full text-base font-serif italic text-bone ring-1 ring-white/15 transition-all duration-300 hover:border-bone hover:bg-white/15 hover:scale-105 active:scale-95"
           >
-            ⓘ
+            i
           </button>
         </motion.div>
       </motion.div>
 
-      <motion.div aria-hidden className="pointer-events-none absolute inset-0 z-[5] bg-ink" style={{ opacity: blackout }} />
+      {/* ================= 6. LOWER HERO DETAILS ================= */}
+      <div className="gutter absolute inset-x-0 bottom-6 z-10 hidden items-center justify-between text-xs lg:flex">
+        {/* Bottom Left: Continue Exploring Indicator */}
+        <button
+          type="button"
+          onClick={() => scrollTo('#originals')}
+          className="group flex items-center gap-2.5 font-semibold tracking-[0.24em] text-mist/70 transition hover:text-bone"
+        >
+          <span className="flex h-5 w-5 items-center justify-center rounded-full border border-white/20 text-[10px] text-crimson-2 transition group-hover:border-crimson-2 group-hover:translate-y-0.5">
+            ↓
+          </span>
+          CONTINUE EXPLORING
+        </button>
+
+        {/* Bottom Center: Thin Progress Track */}
+        <div className="hidden xl:flex items-center gap-2">
+          <div className="h-[2px] w-32 rounded-full bg-white/15 overflow-hidden">
+            <div className="h-full w-12 rounded-full bg-crimson-2 shadow-[0_0_8px_#ff3d5a]" />
+          </div>
+        </div>
+
+        {/* Bottom Right: Series Viewing Status */}
+        <div className="flex items-center gap-3 font-semibold tracking-[0.20em] text-smoke">
+          <span className="h-1.5 w-1.5 rounded-full bg-crimson-2 animate-pulse" />
+          <span>SERIES PREMIERE • S01</span>
+        </div>
+      </div>
+
+      {/* Blackout overlay during scroll out */}
+      <motion.div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[5] bg-ink" style={{ opacity: blackout }} />
     </section>
   );
 }
-
-type MV = ReturnType<typeof useTransform<number, number>>;
-
-function FloatChip({ text, sub, pos, depth, index, mx, my }: { text: string; sub: string; pos: string; depth: number; index: number; mx: MV; my: MV }) {
-  const x = useTransform(mx, (n: number) => n * depth);
-  const y = useTransform(my, (n: number) => n * depth);
-  return (
-    <motion.div
-      className={`glass absolute hidden rounded-xl px-4 py-2.5 md:block ${pos}`}
-      style={{ x, y }}
-      initial={{ opacity: 0, filter: 'blur(6px)' }}
-      animate={{ opacity: 1, filter: 'blur(0px)' }}
-      transition={{ duration: 0.9, delay: 1.2 + index * 0.18, ease: EASE }}
-    >
-      <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 5 + index, repeat: Infinity, ease: 'easeInOut' }}>
-        <p className="text-sm font-semibold text-bone">{text}</p>
-        <p className="text-[10px] uppercase tracking-[0.2em] text-mist">{sub}</p>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-
-

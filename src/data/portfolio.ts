@@ -1,5 +1,5 @@
 /**
- * Central portfolio data — personalized for Krishna Kant Srivastava.
+ * Central portfolio data Â· personalized for Krishna Kant Srivastava.
  * Every fact on the site comes from this file. Update it here and the whole site follows.
  */
 
@@ -12,10 +12,9 @@ export const profile = {
   seriesTag: 'THE SERIES',
   /** Fictional studio card shown at the very start of the opening sequence. */
   originalLabel: 'A SRIVASTAVA ORIGINAL',
-  role: 'AI / ML Engineer · Creative Developer',
+  role: 'AI / ML ENGINEER Â· PYTHON Â· SOFTWARE DEVELOPER',
   tagline: ['AI / ML Engineer', 'Python', 'Software Developer'],
-  intro:
-    'An Artificial Intelligence and Machine Learning specialist building intelligent predictive models, data-driven systems, and modern full-stack web applications with Python, AI/ML, React, and TypeScript.',
+  intro: 'Building intelligent predictive systems and modern software experiences with Python, AI/ML, and full-stack technologies.',
   location: 'India',
   email: 'krishnakantofficial27@gmail.com',
   links: {
@@ -24,9 +23,12 @@ export const profile = {
   },
   resumePdf: '/assets/Krishna_Kant_Srivastava_Resume.pdf',
   portrait: {
-    src: '/assets/portrait-720.webp',
-    srcSet: '/assets/portrait-420.webp 420w, /assets/portrait-720.webp 720w, /assets/portrait-1100.webp 1100w',
+    src: '/images/krishna-portrait.png',
     alt: 'Portrait of Krishna Kant Srivastava',
+  },
+  sunglassesPortrait: {
+    src: '/images/krishna-sunglasses.png',
+    alt: 'Cinematic portrait of Krishna Kant Srivastava wearing sunglasses',
   },
   interests: ['Artificial Intelligence', 'Machine Learning', 'Python', 'Predictive Modeling', 'Creative Web Development'],
 };
@@ -35,7 +37,7 @@ export const education = [
   {
     school: 'Undergraduate Engineering Program',
     place: 'India',
-    degree: 'Bachelor of Technology — Artificial Intelligence and Machine Learning',
+    degree: 'Bachelor of Technology Â· Artificial Intelligence and Machine Learning',
     period: 'Present',
     score: 'AI & ML Focus',
   },
@@ -77,7 +79,7 @@ export const projects: Project[] = [
     id: 'slopesafe',
     title: 'SlopeSafe',
     year: '2026',
-    genre: 'AI / ML · Geo-Risk · Predictive Analytics',
+    genre: 'AI / ML Â· Geo-Risk Â· Predictive Analytics',
     logline: 'An intelligent landslide-risk monitoring and prediction system utilizing terrain features, meteorological telemetry, and predictive ML models.',
     stack: ['Python', 'Machine Learning', 'Data Analytics', 'Predictive Modeling', 'REST API'],
     build: [
@@ -105,7 +107,7 @@ export const projects: Project[] = [
     id: 'cinematic-portfolio',
     title: 'Cinematic Series Portfolio',
     year: '2026',
-    genre: 'Creative Dev · React · Framer Motion',
+    genre: 'Creative Dev Â· React Â· Framer Motion',
     logline: 'A cinematic OTT streaming-inspired developer portfolio engineered with React 18, TypeScript, Tailwind CSS v4, and Lenis smooth scrolling.',
     stack: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Lenis'],
     build: [
@@ -131,7 +133,7 @@ export const projects: Project[] = [
     id: 'intelligent-analytics',
     title: 'AI Exploration & ML Pipelines',
     year: '2026',
-    genre: 'Python · Data Science · ML Pipelines',
+    genre: 'Python Â· Data Science Â· ML Pipelines',
     logline: 'Modular Python pipelines for machine learning modeling, statistical analysis, and algorithmic experimentation.',
     stack: ['Python', 'NumPy', 'Pandas', 'Scikit-Learn'],
     build: [
@@ -460,7 +462,7 @@ export const introSlides: IntroSlide[] = [
   {
     kicker: 'Core Stack',
     title: 'Python First.',
-    lines: ['Python, C++, Java, JavaScript · React, TypeScript, Tailwind CSS', 'NumPy, Pandas, Scikit-Learn · Machine Learning & Predictive Modeling'],
+    lines: ['Python, C++, Java, JavaScript Â· React, TypeScript, Tailwind CSS', 'NumPy, Pandas, Scikit-Learn Â· Machine Learning & Predictive Modeling'],
     chips: ['Python', 'Machine Learning', 'React', 'TypeScript', 'Predictive Modeling'],
   },
   {
@@ -523,11 +525,11 @@ export const viewerProfiles: {
 ];
 
 export const sectionMeta: Record<SectionId, { nav: string; card: string; meta: string; palette: Palette }> = {
-  about: { nav: 'About', card: 'About Me', meta: 'The Pilot · Background & focus', palette: violet },
-  journey: { nav: 'Journey', card: 'My Journey', meta: `${seasons.length} Seasons · ${seasons.reduce((n, s) => n + s.episodes.length, 0)} Episodes`, palette: amber },
-  originals: { nav: 'Originals', card: 'My Projects', meta: `${projects.length} Originals · SlopeSafe`, palette: crimson },
+  about: { nav: 'About', card: 'About Me', meta: 'The Pilot â€” Background & focus', palette: violet },
+  journey: { nav: 'Journey', card: 'My Journey', meta: `${seasons.length} Seasons Â· ${seasons.reduce((n, s) => n + s.episodes.length, 0)} Episodes`, palette: amber },
+  originals: { nav: 'Originals', card: 'My Projects', meta: `${projects.length} Originals Â· SlopeSafe`, palette: crimson },
   picks: { nav: 'Top Picks', card: 'Top Picks', meta: 'Top 10 highlights & focus areas', palette: jade },
-  skills: { nav: 'Skills', card: 'My Skills', meta: `${skillCategories.length} Categories · Python & AI/ML`, palette: ocean },
-  moments: { nav: 'Moments', card: 'Top Moments', meta: `${achievements.length} Milestones · Focus Areas`, palette: crimson },
-  story: { nav: 'Resume', card: 'The Full Story', meta: 'Resume · View & download', palette: violet },
+  skills: { nav: 'Skills', card: 'My Skills', meta: `${skillCategories.length} Categories Â· Python & AI/ML`, palette: ocean },
+  moments: { nav: 'Moments', card: 'Top Moments', meta: `${achievements.length} Milestones Â· Focus Areas`, palette: crimson },
+  story: { nav: 'Resume', card: 'The Full Story', meta: 'Resume â€” View & download', palette: violet },
 };
