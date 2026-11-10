@@ -203,13 +203,122 @@ export const achievements: Achievement[] = [
   },
 ];
 
-export type Certification = { issuer: string; name: string; link: string };
+export type SkillBadge = {
+  id: string;
+  title: string;
+  issuer: string;
+  category: string;
+  level: string;
+  image: string;
+  description: string;
+};
+
+export const skillBadges: SkillBadge[] = [
+  {
+    id: 'gcp-vertex-ai-gemini',
+    title: 'Explore Generative AI with the Vertex AI Gemini API',
+    issuer: 'Google Cloud',
+    category: 'Machine Learning & AI',
+    level: 'Skill Badge · Intermediate',
+    image: '/badges/google-cloud-vertex-ai-gemini-api.png',
+    description: 'Developing advanced generative AI solutions using Vertex AI SDK and the Gemini API, covering prompt design, multimodal inputs, and parameter tuning.',
+  },
+  {
+    id: 'gcp-gemini-enterprise',
+    title: 'Create Your First Gemini Enterprise Application',
+    issuer: 'Google Cloud',
+    category: 'Artificial Intelligence',
+    level: 'Skill Badge · Introductory',
+    image: '/badges/google-cloud-gemini-enterprise-app.png',
+    description: 'Hands-on proficiency in building enterprise-grade applications with Google Gemini generative AI models and APIs.',
+  },
+  {
+    id: 'gcp-ai-studio',
+    title: 'Develop AI-powered Prototypes in Google AI Studio',
+    issuer: 'Google Cloud',
+    category: 'Artificial Intelligence',
+    level: 'Skill Badge · Introductory',
+    image: '/badges/google-cloud-ai-studio-prototypes.png',
+    description: 'Rapid prototyping and prompt engineering for multimodal generative AI applications in Google AI Studio.',
+  },
+  {
+    id: 'gcp-cloud-vision',
+    title: 'Analyze Images with the Cloud Vision API',
+    issuer: 'Google Cloud',
+    category: 'Machine Learning & AI',
+    level: 'Skill Badge · Introductory',
+    image: '/badges/google-cloud-vision-api.png',
+    description: 'Leveraging Cloud Vision API to perform label detection, OCR text extraction, facial analysis, and safe-search landmark detection on image datasets.',
+  },
+  {
+    id: 'gcp-speech-api',
+    title: 'Using the Google Cloud Speech API',
+    issuer: 'Google Cloud',
+    category: 'Machine Learning & AI',
+    level: 'Skill Badge · Introductory',
+    image: '/badges/google-cloud-speech-api.png',
+    description: 'Transcribing audio files to text, processing streaming audio, and translating speech using the Google Cloud Speech-to-Text API.',
+  },
+  {
+    id: 'gcp-speech-language',
+    title: 'Implement Speech and Language Solutions with Pre-trained APIs',
+    issuer: 'Google Cloud',
+    category: 'Artificial Intelligence',
+    level: 'Skill Badge · Introductory',
+    image: '/badges/google-cloud-speech-language-apis.png',
+    description: 'Integrating Google Cloud Speech-to-Text, Natural Language, and Translation APIs into production workflows.',
+  },
+  {
+    id: 'gcp-cloud-compute',
+    title: 'The Basics of Google Cloud Compute',
+    issuer: 'Google Cloud',
+    category: 'Infrastructure Modernization',
+    level: 'Skill Badge · Introductory',
+    image: '/badges/google-cloud-compute-basics.png',
+    description: 'Provisioning and configuring Compute Engine virtual machine instances, persistent disks, and compute load balancers.',
+  },
+  {
+    id: 'gcp-build-website',
+    title: 'Build a Website on Google Cloud',
+    issuer: 'Google Cloud',
+    category: 'Infrastructure Modernization',
+    level: 'Skill Badge · Introductory',
+    image: '/badges/google-cloud-build-a-website.png',
+    description: 'Deploying scalable web applications on Google Cloud using Compute Engine, Cloud Run, and containerized architectures.',
+  },
+  {
+    id: 'gcp-store-manage-data',
+    title: 'Store, Process, and Manage Data - Console',
+    issuer: 'Google Cloud',
+    category: 'Data Management',
+    level: 'Skill Badge · Introductory',
+    image: '/badges/google-cloud-store-process-manage-data.png',
+    description: 'Configuring Cloud Storage, querying scalable datasets in BigQuery, and administering cloud database systems.',
+  },
+  {
+    id: 'gcp-iam-service-accounts',
+    title: 'Configure Service Accounts and IAM roles for Google Cloud',
+    issuer: 'Google Cloud',
+    category: 'Security',
+    level: 'Skill Badge · Introductory',
+    image: '/badges/google-cloud-iam-service-accounts.png',
+    description: 'Enforcing cloud security, identity & access management (IAM), and least-privilege service account architectures.',
+  },
+];
+
+export type Certification = { issuer: string; name: string; link: string; badgeImage?: string; category?: string };
 
 export const certifications: Certification[] = [
-  { issuer: 'Discipline', name: 'Artificial Intelligence & Machine Learning', link: '#' },
-  { issuer: 'Language', name: 'Python Engineering & Scientific Computing', link: '#' },
-  { issuer: 'Frontend', name: 'Modern React & TypeScript Architecture', link: '#' },
-  { issuer: 'Core Focus', name: 'Predictive Modeling & Geo-Hazard Intelligence', link: '#' },
+  { issuer: 'Google Cloud', name: 'Explore Generative AI with the Vertex AI Gemini API', link: '#', badgeImage: '/badges/google-cloud-vertex-ai-gemini-api.png', category: 'Machine Learning & AI' },
+  { issuer: 'Google Cloud', name: 'Create Your First Gemini Enterprise Application', link: '#', badgeImage: '/badges/google-cloud-gemini-enterprise-app.png', category: 'Artificial Intelligence' },
+  { issuer: 'Google Cloud', name: 'Develop AI-powered Prototypes in Google AI Studio', link: '#', badgeImage: '/badges/google-cloud-ai-studio-prototypes.png', category: 'Artificial Intelligence' },
+  { issuer: 'Google Cloud', name: 'Analyze Images with the Cloud Vision API', link: '#', badgeImage: '/badges/google-cloud-vision-api.png', category: 'Machine Learning & AI' },
+  { issuer: 'Google Cloud', name: 'Using the Google Cloud Speech API', link: '#', badgeImage: '/badges/google-cloud-speech-api.png', category: 'Machine Learning & AI' },
+  { issuer: 'Google Cloud', name: 'Implement Speech and Language Solutions with Pre-trained APIs', link: '#', badgeImage: '/badges/google-cloud-speech-language-apis.png', category: 'Artificial Intelligence' },
+  { issuer: 'Google Cloud', name: 'The Basics of Google Cloud Compute', link: '#', badgeImage: '/badges/google-cloud-compute-basics.png', category: 'Infrastructure Modernization' },
+  { issuer: 'Google Cloud', name: 'Build a Website on Google Cloud', link: '#', badgeImage: '/badges/google-cloud-build-a-website.png', category: 'Infrastructure Modernization' },
+  { issuer: 'Google Cloud', name: 'Store, Process, and Manage Data - Console', link: '#', badgeImage: '/badges/google-cloud-store-process-manage-data.png', category: 'Data Management' },
+  { issuer: 'Google Cloud', name: 'Configure Service Accounts and IAM roles for Google Cloud', link: '#', badgeImage: '/badges/google-cloud-iam-service-accounts.png', category: 'Security' },
 ];
 
 export type Skill = { name: string; mono: string; note?: string };

@@ -133,9 +133,9 @@ export default function Hero({
         <motion.div
           className="relative flex h-full w-full items-end justify-center lg:h-[92vh]"
           style={{ rotateY: imgRotY, rotateX: imgRotX, x: imgShiftX, transformPerspective: 1200 }}
-          initial={{ clipPath: 'inset(100% -30% -10% -30%)', opacity: 0 }}
-          animate={{ clipPath: 'inset(-30% -30% -10% -30%)', opacity: 1 }}
-          transition={{ duration: 1.5, ease: EASE, delay: 0.1 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: EASE, delay: 0.1 }}
         >
           {/* ================= CIRCULAR ENERGY RINGS (POSITIONED EXACTLY BEHIND HEAD & SHOULDERS) ================= */}
           <div
@@ -192,24 +192,32 @@ export default function Hero({
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle,rgba(229,19,43,0.38)_0%,rgba(160,15,40,0.12)_60%,transparent_75%)] blur-2xl" />
           </div>
 
-          {/* ================= REAL PHOTOGRAPH: KRISHNA (SOLID FACE/CHEST, SEAMLESS FEATHERED EDGES) ================= */}
-          <img
-            src="/images/krishna-portrait.png"
-            alt="Krishna Kant Srivastava - AI / ML Engineer"
-            className="relative z-10 h-full w-auto max-w-none object-contain object-bottom drop-shadow-[0_25px_65px_rgba(0,0,0,0.85)]"
-            style={{
-              maskImage: 'radial-gradient(ellipse 68% 80% at 52% 44%, black 48%, rgba(0,0,0,0.85) 62%, transparent 78%), linear-gradient(to bottom, black 72%, transparent 97%)',
-              WebkitMaskImage: 'radial-gradient(ellipse 68% 80% at 52% 44%, black 48%, rgba(0,0,0,0.85) 62%, transparent 78%), linear-gradient(to bottom, black 72%, transparent 97%)',
-              maskComposite: 'intersect',
-              WebkitMaskComposite: 'source-in',
-            }}
-          />
+          {/* ================= REAL PHOTOGRAPH: KRISHNA (SEAMLESS CINEMATIC BLEND) ================= */}
+          <div className="relative z-10 flex h-full w-auto items-end justify-center">
+            {/* Atmospheric crimson backlight glow behind silhouette */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute bottom-[18%] left-1/2 -translate-x-1/2 -z-10 h-[62%] w-[96%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(229,19,43,0.44)_0%,rgba(180,15,45,0.18)_50%,transparent_74%)] blur-3xl"
+            />
 
-          {/* Soft atmospheric backlight bloom behind Krishna's silhouette */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute bottom-[20%] left-1/2 -translate-x-1/2 z-0 h-[48%] w-[84%] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(229,19,43,0.25),transparent_70%)] blur-2xl"
-          />
+            <img
+              src="/images/krishna-portrait.png"
+              alt="Krishna Kant Srivastava - AI / ML Engineer"
+              className="relative z-10 h-full w-auto max-w-none object-contain object-bottom drop-shadow-[0_20px_55px_rgba(0,0,0,0.85)]"
+            />
+
+            {/* Seamless deep ink gradient melt at bottom of torso - dissolves jacket into dark background */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-[-25%] bottom-0 h-[38%] bg-gradient-to-t from-ink via-ink/90 via-35% to-transparent z-20"
+            />
+
+            {/* Ambient cinematic crimson fog rolling across lower torso */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-[-20%] bottom-[6%] h-[26%] bg-[radial-gradient(ellipse_at_bottom,rgba(229,19,43,0.30)_0%,rgba(180,15,45,0.12)_50%,transparent_75%)] blur-2xl z-20 mix-blend-screen"
+            />
+          </div>
 
           {/* ================= 4. THREE FLOATING INFORMATION CARDS (EXACT TARGET MATCH) ================= */}
           {/* Card 1: SlopeSafe */}
