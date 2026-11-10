@@ -201,7 +201,7 @@ export default function Hero({
             />
 
             <img
-              src="/images/krishna-portrait.png"
+              src="./images/krishna-portrait.png"
               alt="Krishna Kant Srivastava - AI / ML Engineer"
               className="relative z-10 h-full w-auto max-w-none object-contain object-bottom drop-shadow-[0_20px_55px_rgba(0,0,0,0.85)]"
             />

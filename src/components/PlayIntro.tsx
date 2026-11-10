@@ -101,7 +101,7 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
         style={{ transformOrigin: '50% 30%' }}
       >
         <img
-          src={phase === "zoom" ? "/images/krishna-sunglasses.png" : "/images/krishna-portrait.png"} sizes="100vw" alt="Krishna Kant Srivastava"
+          src={phase === "zoom" ? "./images/krishna-sunglasses.png" : "./images/krishna-portrait.png"} sizes="100vw" alt="Krishna Kant Srivastava"
           className="h-[88vh] w-auto max-w-none object-contain [mask-image:linear-gradient(to_bottom,black_60%,transparent)]"
         />
       </motion.div>

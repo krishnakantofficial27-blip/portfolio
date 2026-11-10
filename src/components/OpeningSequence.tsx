@@ -148,7 +148,7 @@ export default function OpeningSequence({ onDone }: { onDone: () => void }) {
         >
           {/* Real Photograph Layer: Krishna Sunglasses */}
           <img
-            src="/images/krishna-sunglasses.png"
+            src="./images/krishna-sunglasses.png"
             alt="Krishna Kant Srivastava - Cinematic Sunglasses Portrait"
             className="relative z-10 h-full w-auto max-w-none object-contain object-bottom drop-shadow-[0_25px_65px_rgba(229,19,43,0.45)] [mask-image:linear-gradient(to_bottom,black_68%,transparent_98%)]"
           />
