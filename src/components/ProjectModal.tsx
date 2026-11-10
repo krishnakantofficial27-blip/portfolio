@@ -91,19 +91,47 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
               {project.logline}
             </motion.p>
 
-            {project.github && (
+            {(project.github || project.link || project.certificate) && (
               <motion.div variants={block} className="mt-6 flex flex-wrap gap-3">
-                <Magnetic>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    data-cursor="link"
-                    className="flex min-h-12 items-center gap-2 rounded-md bg-bone px-6 text-[15px] font-bold text-ink transition hover:bg-white"
-                  >
-                    GitHub ↗
-                  </a>
-                </Magnetic>
+                {project.link && (
+                  <Magnetic>
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      data-cursor="link"
+                      className="flex min-h-12 items-center gap-2 rounded-md bg-crimson px-6 text-[15px] font-bold text-white shadow-[0_0_30px_rgba(229,19,43,0.4)] transition hover:bg-crimson-2"
+                    >
+                      {project.linkText || 'Live Web Link ↗'}
+                    </a>
+                  </Magnetic>
+                )}
+                {project.certificate && (
+                  <Magnetic>
+                    <a
+                      href={project.certificate}
+                      target="_blank"
+                      rel="noreferrer"
+                      data-cursor="link"
+                      className="glass flex min-h-12 items-center gap-2 rounded-md px-6 text-[15px] font-bold text-bone transition hover:bg-white/15"
+                    >
+                      📜 {project.certificateText || 'View Certificate ↗'}
+                    </a>
+                  </Magnetic>
+                )}
+                {project.github && (
+                  <Magnetic>
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      data-cursor="link"
+                      className="flex min-h-12 items-center gap-2 rounded-md bg-bone px-6 text-[15px] font-bold text-ink transition hover:bg-white"
+                    >
+                      GitHub ↗
+                    </a>
+                  </Magnetic>
+                )}
               </motion.div>
             )}
 

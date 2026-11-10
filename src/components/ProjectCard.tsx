@@ -54,6 +54,30 @@ export default function ProjectCard({ project, index, onOpen }: { project: Proje
             </div>
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <span className="flex min-h-11 items-center gap-2 rounded-md bg-bone px-5 text-sm font-bold text-ink transition group-hover:bg-white">▶ View Project</span>
+              {project.link && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-cursor="link"
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex min-h-11 items-center gap-2 rounded-md border border-crimson/50 bg-crimson/20 px-4 text-sm font-semibold text-white backdrop-blur transition hover:bg-crimson/40"
+                >
+                  {project.linkText || 'Live Web Link ↗'}
+                </a>
+              )}
+              {project.certificate && (
+                <a
+                  href={project.certificate}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-cursor="link"
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex min-h-11 items-center gap-2 rounded-md border border-white/25 bg-black/30 px-4 text-sm font-semibold text-bone backdrop-blur transition hover:border-bone"
+                >
+                  Certificate ↗
+                </a>
+              )}
               {project.github && (
                 <a
                   href={project.github}

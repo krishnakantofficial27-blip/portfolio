@@ -49,10 +49,10 @@ export default function Hero({
   const glowX = useTransform(px, [-1, 1], ['-2%', '2%']);
 
   const metaItems = [
-    'AI / ML & Software',
-    'B.Tech AI & ML',
-    '3 Originals',
-    'SlopeSafe Featured',
+    'B.Tech CSE (AI & ML)',
+    'JAIN University',
+    'SIH 2026 Selected',
+    'Vibe Coder',
   ];
 
   return (
@@ -353,7 +353,7 @@ export default function Hero({
           variants={item}
           className="mt-4 text-[11px] font-bold uppercase tracking-[0.32em] text-bone sm:text-xs sm:tracking-[0.36em]"
         >
-          AI / ML ENGINEER • PYTHON • SOFTWARE DEVELOPER
+          {profile.role.replace(/·/g, '•')}
         </motion.p>
 
         {/* Professional Introduction Paragraph */}
@@ -361,7 +361,7 @@ export default function Hero({
           variants={item}
           className="mt-4 max-w-xl text-[14px] leading-relaxed text-bone/85 sm:text-[15px]"
         >
-          An Artificial Intelligence and Machine Learning specialist building intelligent predictive models, data-driven systems, and modern full-stack web applications with Python, AI/ML, React, and TypeScript.
+          {profile.intro}
         </motion.p>
 
         {/* Action Buttons */}

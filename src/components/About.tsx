@@ -4,10 +4,10 @@ import { EASE, SectionHeading, Tilt } from './fx';
 
 export default function About() {
   const facts = [
-    { k: 'Focus', v: 'B.Tech, AI & ML', s: 'Artificial Intelligence & Machine Learning' },
-    { k: 'Featured Work', v: 'SlopeSafe', s: 'Landslide-Risk Monitoring & Prediction' },
-    { k: 'Primary language', v: 'Python', s: 'with C++, Java, JavaScript' },
-    { k: 'Based in', v: profile.location, s: 'Global software engineering' },
+    { k: 'Academic Program', v: 'B.Tech CSE (AI & ML)', s: 'JAIN (Deemed-to-be University), Bengaluru' },
+    { k: 'Developer Approach', v: 'AI-Assisted & Vibe Coder', s: 'Prompt Engineering & Rapid Prototyping' },
+    { k: 'Hackathons & Projects', v: 'SIH 2026 & SlopeSafe', s: 'Second-Round Selection & Landslide AI' },
+    { k: 'Location', v: profile.location, s: 'Available for collaborative AI/ML & software projects' },
   ];
 
   return (
