@@ -4,6 +4,7 @@ import { projects, type Project } from '../data/portfolio';
 import { useScrollLock } from '../hooks/smoothScroll';
 import { EASE, Magnetic } from './fx';
 import { ProjectArt } from './Poster';
+import SlopeSafeSimulator from './SlopeSafeSimulator';
 
 const block = {
   hidden: { opacity: 0, y: 24, filter: 'blur(8px)' },
@@ -192,6 +193,13 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
                 </motion.section>
               </div>
             </div>
+
+            {/* Interactive Python ML Simulator for SlopeSafe */}
+            {project.id === 'slopesafe' && (
+              <motion.section variants={block}>
+                <SlopeSafeSimulator />
+              </motion.section>
+            )}
 
             {/* more like this */}
             <motion.section variants={block} className="mt-14 border-t border-white/10 pt-8">

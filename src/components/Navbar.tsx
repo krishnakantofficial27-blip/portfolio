@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { sectionMeta, viewerProfiles, type ProfileId, type SectionId } from '../data/portfolio';
 import { useSmoothScroll } from '../hooks/smoothScroll';
+import { checkBackendHealth } from '../services/api';
 import { SeriesMark } from './Poster';
 import { ProfileAvatar } from './ProfileSelector';
 import { EASE } from './fx';
@@ -13,8 +14,17 @@ export default function Navbar({ order, profileId, onSwitch }: { order: SectionI
   const [menu, setMenu] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
   const [active, setActive] = useState<string>('top');
+  const [backendOnline, setBackendOnline] = useState<boolean | null>(null);
   const { scrollTo } = useSmoothScroll();
   const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    checkBackendHealth().then((h) => setBackendOnline(h !== null));
+    const interval = setInterval(() => {
+      checkBackendHealth().then((h) => setBackendOnline(h !== null));
+    }, 15000);
+    return () => clearInterval(interval);
+  }, []);
 
   useMotionValueEvent(scrollY, 'change', (y) => {
     const prev = scrollY.getPrevious() ?? 0;
@@ -77,6 +87,15 @@ export default function Navbar({ order, profileId, onSwitch }: { order: SectionI
         </div>
 
         <div className="flex items-center gap-3">
+          {backendOnline && (
+            <span
+              title="Python FastAPI Backend Active"
+              className="hidden lg:inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-mono font-semibold tracking-wide text-emerald-400"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              PYTHON API
+            </span>
+          )}
           <button
             type="button"
             onClick={() => go('contact')}
